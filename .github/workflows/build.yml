@@ -36,4 +36,4 @@ jobs:
         uses: actions/checkout@v5
 
       - name: Build image
-        run: docker build -f src/Server/Dockerfile -t Chittak:ci .
+        run: docker build -f src/Server/Dockerfile -t chittak:ci .
