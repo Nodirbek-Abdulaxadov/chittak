@@ -9,7 +9,7 @@ on:
 jobs:
   build:
     name: Build & Analyze & Test
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.4
     steps:
       - name: Checkout
         uses: actions/checkout@v5
@@ -30,7 +30,7 @@ jobs:
 
   docker:
     name: Docker Image
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.4
     steps:
       - name: Checkout
         uses: actions/checkout@v5
