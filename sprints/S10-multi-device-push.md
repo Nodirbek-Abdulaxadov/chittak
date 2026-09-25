@@ -1,4 +1,4 @@
-[← S09](S09-maui-chat.md) · [Reja va qoidalar](README.md) · [S11 →](S11-turn-signaling.md)
+[← S09](S09-maui-chat.md) · [Reja va qoidalar](README.md) · [S11 →](S11-desktop-avalonia.md)
 
 # Sprint 10 — Multi-device sync, rotatsiya, push
 
@@ -39,4 +39,4 @@ Telefon + emulator bir akkaunt: birida yozilgan xabar ikkinchisida ko'rinadi; il
 ---
 
 ---
-[← S09](S09-maui-chat.md) · [Reja va qoidalar](README.md) · [S11 →](S11-turn-signaling.md)
+[← S09](S09-maui-chat.md) · [Reja va qoidalar](README.md) · [S11 →](S11-desktop-avalonia.md)

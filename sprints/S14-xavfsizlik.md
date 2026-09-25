@@ -1,6 +1,6 @@
-[← S12](S12-webrtc-media.md) · [Reja va qoidalar](README.md) · [S14 →](S14-release.md)
+[← S13](S13-webrtc-media.md) · [Reja va qoidalar](README.md) · [S15 →](S15-release.md)
 
-# Sprint 13 — Xavfsizlikni qattiqlashtirish
+# Sprint 14 — Xavfsizlikni qattiqlashtirish
 
 **Maqsad:** o'zingga "hujumchi" bo'lib qarash: threat model, safety numbers, cheklovlar, log tozaligi, bog'liqliklar auditi.
 
@@ -11,18 +11,19 @@
 ## Vazifalar
 | ID | Vazifa | Qabul mezoni |
 |---|---|---|
-| S13-01 | `docs/security/threat-model.md`: aktivlar, hujumchilar (server egasi, tarmoq MITM, o'g'irlangan telefon, yomon niyatli foydalanuvchi), har biri uchun nima himoyalangan / nima **emas** (metadata!) | Yozilgan, halol |
-| S13-02 | Safety numbers: ikkala identity public kalitidan 60 xonali raqam (Signal usuli: SHA-512 iteratsiya) + QR; UI'da "Xavfsizlik raqamini tekshirish" ekrani, QR skan → `trusted=verified` | Ikki qurilmada raqam bir xil; QR skan ishlaydi |
-| S13-03 | Identity o'zgarganda (S8-04) — `verified` bo'lsa qattiq ogohlantirish, yuborish bloklanadi to qabul qilinguncha | Qo'lda test |
-| S13-04 | Server: barcha endpointlar uchun rate-limit jadvali `docs/security/rate-limits.md`; `POST /messages`ga qo'shimcha: kunlik limit | Testlar |
-| S13-05 | Server log auditi: grep bo'yicha `phone`, `token`, `envelope` loglarda yo'q; request logging'da body o'chirilgan | Skript CI'da |
-| S13-06 | Metadata minimallash: `last_seen_at` soatgacha; `presence` faqat kontaktlarga (server kontaktni bilmaydi → faqat "so'ragan" qurilmaga, rate-limit bilan); `sender_device_id` — sealed sender v2 uchun ADR | ADR `0010-metadata-policy.md` |
-| S13-07 | Klient: screenshot bloklash opsiyasi (Android `FLAG_SECURE`), ilova fonda bo'lganda preview yashirish, PIN/biometrik qulf (ixtiyoriy) | — |
-| S13-08 | Bog'liqliklar auditi: `dotnet list package --vulnerable`, Dependabot yoqish | CI'da |
-| S13-09 | MobSF bilan APK statik tahlil — topilmalar bo'yicha issue'lar | Hisobot `docs/security/mobsf-YYYY-MM.md` |
-| S13-10 | Server hardening: HTTPS only, HSTS, JWT secret env'dan, Postgres foydalanuvchisi minimal huquq, `docker-compose.prod.yml` | Checklist |
-| S13-11 | Kod review checklist `docs/security/review-checklist.md` — kripto tegadigan har PR uchun | Yozilgan |
-| S13-12 | (ixtiyoriy, kuchli) Bitta do'stingdan/hamkasbdan "buzib ko'r" — 1 kun, topilmalar issue | — |
+| S14-01 | `docs/security/threat-model.md`: aktivlar, hujumchilar (server egasi, tarmoq MITM, o'g'irlangan telefon, o'g'irlangan / umumiy kompyuter (desktop), yomon niyatli foydalanuvchi), har biri uchun nima himoyalangan / nima **emas** (metadata!) | Yozilgan, halol |
+| S14-02 | Safety numbers: ikkala identity public kalitidan 60 xonali raqam (Signal usuli: SHA-512 iteratsiya) + QR; UI'da "Xavfsizlik raqamini tekshirish" ekrani, QR skan → `trusted=verified` | Ikki qurilmada raqam bir xil; QR skan ishlaydi |
+| S14-03 | Identity o'zgarganda (S8-04) — `verified` bo'lsa qattiq ogohlantirish, yuborish bloklanadi to qabul qilinguncha | Qo'lda test |
+| S14-04 | Server: barcha endpointlar uchun rate-limit jadvali `docs/security/rate-limits.md`; `POST /messages`ga qo'shimcha: kunlik limit | Testlar |
+| S14-05 | Server log auditi: grep bo'yicha `phone`, `token`, `envelope` loglarda yo'q; request logging'da body o'chirilgan | Skript CI'da |
+| S14-06 | Metadata minimallash: `last_seen_at` soatgacha; `presence` faqat kontaktlarga (server kontaktni bilmaydi → faqat "so'ragan" qurilmaga, rate-limit bilan); `sender_device_id` — sealed sender v2 uchun ADR | ADR `0010-metadata-policy.md` |
+| S14-07 | Klient: screenshot bloklash opsiyasi (Android `FLAG_SECURE`), ilova fonda bo'lganda preview yashirish, PIN/biometrik qulf (ixtiyoriy) | — |
+| S14-08 | Bog'liqliklar auditi: `dotnet list package --vulnerable`, Dependabot yoqish | CI'da |
+| S14-09 | MobSF bilan APK statik tahlil — topilmalar bo'yicha issue'lar | Hisobot `docs/security/mobsf-YYYY-MM.md` |
+| S14-10 | Server hardening: HTTPS only, HSTS, JWT secret env'dan, Postgres foydalanuvchisi minimal huquq, `docker-compose.prod.yml` | Checklist |
+| S14-11 | Kod review checklist `docs/security/review-checklist.md` — kripto tegadigan har PR uchun | Yozilgan |
+| S14-12 | (ixtiyoriy, kuchli) Bitta do'stingdan/hamkasbdan "buzib ko'r" — 1 kun, topilmalar issue | — |
+| S14-13 | Desktop auditi: `~/.local/share/chittak` ruxsatlari (`0700`/`0600`), maxfiy kalitlar faqat Secret Service'da, log va bildirishnomalarda plaintext yo'q, core dump o'chirilgan | Checklist `docs/security/desktop.md` |
 
 ## Demo
 Threat model hujjati; ikki telefon safety number solishtiradi; `dotnet list package --vulnerable` toza.
@@ -45,4 +46,4 @@ Threat model hujjati; ikki telefon safety number solishtiradi; `dotnet list pack
 ---
 
 ---
-[← S12](S12-webrtc-media.md) · [Reja va qoidalar](README.md) · [S14 →](S14-release.md)
+[← S13](S13-webrtc-media.md) · [Reja va qoidalar](README.md) · [S15 →](S15-release.md)

@@ -41,7 +41,7 @@ Ikki terminalda `Chittak.ConsoleDemo --phone +99890...`; biri offline bo'lganda 
 
 ## Tuzoqlar
 - "Push qildim = yetkazdim" deb o'chirish — S6-07 testi buni ushlaydi. Test avval yoz.
-- In-memory connection registry — bitta server instansiyasi uchun. Ikki instansiya bo'lsa Redis backplane kerak (S14).
+- In-memory connection registry — bitta server instansiyasi uchun. Ikki instansiya bo'lsa Redis backplane kerak (S15).
 - WS orqali katta envelope — hajm limiti + base64 emas, binary (MessagePack) ishlat.
 
 ---

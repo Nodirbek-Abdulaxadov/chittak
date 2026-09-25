@@ -41,10 +41,12 @@ Butun tizimni bitta jumla bilan tushun:
 
 ## 2. Uch qism — har biri nima qiladi (va NIMANI qilmaydi)
 
-**Klient (.NET MAUI, telefonda):**
-- Identity va prekey kalitlarni **generatsiya** qiladi; maxfiylarini Keystore/Keychain'da saqlaydi.
+**Klient (telefonda — .NET MAUI; desktop'da — Avalonia):**
+- Identity va prekey kalitlarni **generatsiya** qiladi; maxfiylarini Keystore/Keychain'da (desktop'da — OS keyring, Linux'da Secret Service) saqlaydi.
 - **Butun kripto** shu yerda: X3DH, Double Ratchet, envelope, session.
 - Local shifrlangan xabar bazasi + offline outbox + UI.
+- Mantiq (ViewModel'lar, servislar, kripto wrapper) bitta umumiy `Chittak.Client` kutubxonasida; MAUI va Avalonia faqat View'lar va platforma implementatsiyalarini (`ISecureStore`, `IContactsProvider`, ...) beradi. Sabab: MAUI'da Linux desktop target yo'q, ikki UI mantiqni ikki marta yozishga majburlamasligi kerak.
+- Desktop — telefonning nusxasi emas, **alohida qurilma**: o'z identity kaliti, o'z sessiyalari; telefon bilan faqat sync envelope (multi-device) orqali bog'lanadi.
 - *Qilmaydi:* maxfiy kalitni hech qachon serverga bermaydi.
 
 **Server (ASP.NET Core):**
@@ -161,12 +163,15 @@ Chittak/
       Chittak.Core/           <- domain (device, key, queue) + interfeyslar
       Chittak.Infrastructure/ <- EF Core + Postgres, repolar, SMS, TURN credential, rate-limit
     client/
-      Chittak.Mobile/         <- MAUI ilova
+      Chittak.Client/         <- umumiy klient mantiqi (UI framework'ni bilmaydi)
         Services/
           Crypto/                <- X3DH, DoubleRatchet, Envelope (SENING protokol koding)
           Api/                   <- REST (Refit) + SignalR klient
           Storage/               <- SecureKeyStore, SessionStore, Outbox
-        Features/                <- Auth, Chat, Contacts, Calls (UI)
+        Features/                <- Auth, Chat, Contacts, Calls (ViewModel'lar)
+        Platform/                <- ISecureStore, IContactsProvider, IConnectivityMonitor, IDispatcher
+      Chittak.Mobile/         <- MAUI ilova: View'lar + Platform/ implementatsiyasi (SecureStorage, Contacts)
+      Chittak.Desktop/        <- Avalonia ilova: View'lar + Platform/ implementatsiyasi (Secret Service)
     shared/
       Chittak.Protocol/       <- umumiy DTO: envelope + bundle formati
   tests/
@@ -176,6 +181,7 @@ Chittak/
 **Nega bu qatlamlar:**
 - **Core** interfeys beradi, **Infrastructure** uni Postgres bilan bajaradi → domain bazani bilmaydi (almashtirsa bo'ladi, test oson).
 - **Crypto** alohida papka — chunki u yurak; **Storage**dan ajratilgan, primitivlar NSec'dan.
+- **Client** UI framework'ni bilmaydi → bitta ViewModel MAUI'da ham, Avalonia'da ham ishlaydi; platformaga bog'liq narsa faqat `Platform/` interfeyslari orqali.
 - **Protocol** (shared) — envelope/bundle formati klient ham, server ham bir xil tushunishi uchun (server ichini ochmasa ham, formatni biladi).
 
 ---
@@ -275,7 +281,7 @@ Media: WebRTC P2P, DTLS-SRTP (shifrlangan), server orqali O'TMAYDI
 
 ## 8. Doira (scope) va keyingi bosqichlar
 
-**v1 (hozirgi dizayn):** telefon/OTP auth, per-device kalitlar, 1:1 E2EE chat (X3DH + Double Ratchet), offline navbat (ACK + TTL), hash bo'yicha kontakt topish, 1:1 qo'ng'iroq (WebRTC + TURN), multi-device (sync envelope).
+**v1 (hozirgi dizayn):** telefon/OTP auth, per-device kalitlar, 1:1 E2EE chat (X3DH + Double Ratchet), offline navbat (ACK + TTL), hash bo'yicha kontakt topish, 1:1 qo'ng'iroq (WebRTC + TURN, faqat mobil), multi-device (sync envelope), Linux desktop klient (Avalonia, qo'ng'iroqsiz).
 
 **Ataylab v1'da YO'Q — keyingi bosqichlar:**
 1. **Guruh chat — Sender Keys.** Har a'zo o'z "sender key"ini guruhdagi har qurilmaga 1:1 sessiya orqali tarqatadi, keyin xabarni bir marta shifrlaydi. Server tomonida `groups`, `group_members` jadvallari va guruh bo'yicha fan-out kerak. 1:1 sessiyalar tayyor bo'lgach ustiga quriladi.
@@ -284,6 +290,7 @@ Media: WebRTC P2P, DTLS-SRTP (shifrlangan), server orqali O'TMAYDI
 4. **Qurilma linking.** Yangi qurilma mavjud qurilmadan QR orqali qo'shiladi; identity kalit **ko'chirilmaydi** — yangi qurilma o'z kalitini yaratadi, eski qurilma uni tasdiqlaydi.
 5. **Safety numbers.** Alisa va Bob identity kalitlarini yuzma-yuz solishtira olishi (MITM'ga qarshi oxirgi himoya).
 6. **Push orqali uyg'otish.** `devices.push_token` — FCM/APNs orqali faqat "yangi narsa bor" signali, mazmunsiz.
+7. **Desktop kengaytmalari.** Desktop'da qo'ng'iroq, Windows/macOS versiyalari (DPAPI / Keychain), kontaktlarni o'z qurilmalari orasida sync qilish (desktop'da manzillar kitobi yo'q).
 
 ---
 

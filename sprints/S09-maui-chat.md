@@ -14,7 +14,7 @@
 | S9-01 | Suhbatlar ro'yxati ekrani (oxirgi xabar, vaqt, o'qilmaganlar soni) | — |
 | S9-02 | Chat ekrani: `CollectionView` (inverted), matn kiritish, yuborish | 1000 xabarda silliq skroll |
 | S9-03 | Yuborish oqimi: `messages` INSERT (status=pending) → har `contact_devices` uchun `SessionCipher.Encrypt` → `outbox` → `POST /messages/batch` → status=sent. Tarmoq yo'q → `outbox`da qoladi | Airplane mode → yoqish → yuboriladi |
-| S9-04 | `OutboxWorker`: `Connectivity.ConnectivityChanged` + har 30s; exponential backoff (`attempts`) | Test (unit) |
+| S9-04 | `OutboxWorker` (`Chittak.Client`da): `IConnectivityMonitor` (MAUI: `Connectivity.ConnectivityChanged`) + har 30s; exponential backoff (`attempts`) | Test (unit) |
 | S9-05 | Qabul: SignalR `ReceiveEnvelope` → `SessionCipher.Decrypt` → `messages` INSERT → **keyin** `Ack(queueId)`; dedup `clientMessageId` bo'yicha | Ilovani decrypt o'rtasida o'ldirsang — xabar qayta keladi, dublikat yo'q |
 | S9-06 | Receipt: qabul qilingach `delivered` receipt (envelope_type=3, ratchet ichida), chat ochilganda `read`; jo'natuvchida ✓ / ✓✓ | Ko'rinadi |
 | S9-07 | SignalR ulanish menejeri: ilova foreground'ga chiqganda ulanish, background'da uzish (batareya), `WithAutomaticReconnect` | — |
@@ -36,6 +36,7 @@ Ikki qurilma yozishadi; birini airplane mode'ga qo'yib yozilgan xabar yoqilganda
 - Decrypt'dan **oldin** ACK — xabar yo'qoladi. Tartib: decrypt → DB → ACK.
 - Bir xabarni 3 qurilmaga 3 marta shifrlash — 3 ta alohida sessiya, 3 ta alohida ratchet. Bitta ciphertext'ni 3 joyga yuborma.
 - UI thread'da kripto — 100 xabar sync bo'lganda UI qotadi. `Task.Run`.
+- Chat ViewModel'lari `Chittak.Client`da qolsin: S11'da desktop chat ekrani faqat yangi View bo'lishi kerak, yangi mantiq emas.
 
 ---
 

@@ -11,11 +11,11 @@
 ## Vazifalar
 | ID | Vazifa | Qabul mezoni |
 |---|---|---|
-| S8-01 | `SQLitePCLRaw.bundle_e_sqlcipher` + `sqlite-net-pcl`; baza kaliti (32 bayt random) `SecureStorage`da; birinchi ochilishda yaratiladi | Baza faylini `adb pull` qilib `sqlite3` bilan ochib bo'lmaydi |
+| S8-01 | `SQLitePCLRaw.bundle_e_sqlcipher` + `sqlite-net-pcl`; baza kaliti (32 bayt random) `ISecureStore`da (MAUI: `SecureStorage`); birinchi ochilishda yaratiladi. Baza kodi `Chittak.Client`da — S11'da desktop ham ishlatadi | Baza faylini `adb pull` qilib `sqlite3` bilan ochib bo'lmaydi |
 | S8-02 | Jadvallar: `contacts(userId, phone, displayName)`, `contact_devices(userId, deviceId, identityKey, trusted)`, `sessions(remoteDeviceId, stateBlob, updatedAt)`, `messages(id, clientMessageId, conversationId, direction, body, status, sentAt)`, `outbox(clientMessageId, recipientDeviceId, envelope, attempts)` | Sxema `docs/mobile/local-db.md`da |
 | S8-03 | `SqliteSessionStore : ISessionStore` — `RatchetState` serialize (S2-01) → `sessions` | Test: saqla → o'qi → bir xil |
-| S8-04 | `IIdentityStore.IsTrusted(remoteDeviceId, identityKey)` — TOFU (trust on first use): birinchi ko'rilgan identity saqlanadi, o'zgarsa `UntrustedIdentity` → UI ogohlantirish (S13 safety numbers uchun zamin) | Test |
-| S8-05 | Manzillar kitobi: MAUI `Contacts.GetAllAsync()`, ruxsat so'rash, E.164 normalizatsiya (mamlakat kodi telefon SIM/localidan) | Ruxsat rad etilsa ilova ishlayveradi (qo'lda raqam kiritish) |
+| S8-04 | `IIdentityStore.IsTrusted(remoteDeviceId, identityKey)` — TOFU (trust on first use): birinchi ko'rilgan identity saqlanadi, o'zgarsa `UntrustedIdentity` → UI ogohlantirish (S14 safety numbers uchun zamin) | Test |
+| S8-05 | Manzillar kitobi: `IContactsProvider` (MAUI implementatsiyasi — `Contacts.GetAllAsync()`), ruxsat so'rash, E.164 normalizatsiya (mamlakat kodi telefon SIM/localidan) | Ruxsat rad etilsa ilova ishlayveradi (qo'lda raqam kiritish) |
 | S8-06 | Server: `POST /contacts/discover { hashes[] }` (≤5000, 1/min/device) → `{ matches: [{hash, userId}] }`, `discoverable=true` filtri; `PATCH /me { discoverable }` | Integratsiya test |
 | S8-07 | Klient: hash'lar → discover → `contacts`ga yozish; natija UI'da "Chittak'da bor" ro'yxati | Emulator kontaktlari bilan ishlaydi |
 | S8-08 | Kontakt qurilmalari: `GET /users/{id}/devices` → `contact_devices` (keshlanadi, 24 soat) | — |

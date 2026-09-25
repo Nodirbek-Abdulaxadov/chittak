@@ -1,6 +1,6 @@
-[← S11](S11-turn-signaling.md) · [Reja va qoidalar](README.md) · [S13 →](S13-xavfsizlik.md)
+[← S12](S12-turn-signaling.md) · [Reja va qoidalar](README.md) · [S14 →](S14-xavfsizlik.md)
 
-# Sprint 12 — Qo'ng'iroq 2: WebRTC media (audio)
+# Sprint 13 — Qo'ng'iroq 2: WebRTC media (audio)
 
 **Maqsad:** haqiqiy audio qo'ng'iroq, P2P yoki TURN orqali, DTLS-SRTP. **Eng xavfli sprint** — 2 haftaga cho'zilishi normal.
 
@@ -19,15 +19,15 @@ Spike natijasi bo'yicha tanla. Tavsiya: 2 (yoki 3).
 ## Vazifalar
 | ID | Vazifa | Qabul mezoni |
 |---|---|---|
-| S12-01 | Spike (1 kun): tanlangan stack bilan "loopback" — bitta qurilmada mikrofon → PeerConnection → dinamik | Eshitiladi |
-| S12-02 | `IWebRtcService` abstraksiyasi (platform-specific implementatsiya): `CreateOffer/Answer`, `AddIceCandidate`, `OnIceCandidate`, `OnConnectionState`, `SetMuted`, `SetSpeaker` | Interfeys + Android impl |
-| S12-03 | S11 signaling ↔ S12 PeerConnection ulash | Ikki qurilma bir Wi-Fi'da gaplashadi |
-| S12-04 | TURN majburiy rejim (`iceTransportPolicy: relay`) bilan test — TURN orqali ham ishlaydi | Mobil internet ↔ Wi-Fi gaplashadi |
-| S12-05 | **DTLS fingerprint tekshiruvi:** SDP ichidagi `a=fingerprint` E2EE signaling orqali kelgan — PeerConnection ulanganda haqiqiy remote sertifikat fingerprint'i bilan solishtir, mos kelmasa uzish | Test: fingerprint buzilsa qo'ng'iroq uzildi |
-| S12-06 | Audio UI: mute, speaker, davomiylik, tarmoq sifati indikatori (`getStats` RTT/packet loss) | — |
-| S12-07 | Ruxsatlar (mikrofon), audio session (iOS `AVAudioSession`, Android `AudioManager` mode), kiruvchi qo'ng'iroqda ring | — |
-| S12-08 | Qo'ng'iroq tugashi: ikkala tomonda tozalash, `HANGUP` signal, "o'tkazib yuborilgan" xabar | — |
-| S12-09 | `docs/calls/media.md`: stack, cheklovlar, ma'lum muammolar | Yozilgan |
+| S13-01 | Spike (1 kun): tanlangan stack bilan "loopback" — bitta qurilmada mikrofon → PeerConnection → dinamik | Eshitiladi |
+| S13-02 | `IWebRtcService` abstraksiyasi (platform-specific implementatsiya): `CreateOffer/Answer`, `AddIceCandidate`, `OnIceCandidate`, `OnConnectionState`, `SetMuted`, `SetSpeaker` | Interfeys + Android impl |
+| S13-03 | S12 signaling ↔ S13 PeerConnection ulash | Ikki qurilma bir Wi-Fi'da gaplashadi |
+| S13-04 | TURN majburiy rejim (`iceTransportPolicy: relay`) bilan test — TURN orqali ham ishlaydi | Mobil internet ↔ Wi-Fi gaplashadi |
+| S13-05 | **DTLS fingerprint tekshiruvi:** SDP ichidagi `a=fingerprint` E2EE signaling orqali kelgan — PeerConnection ulanganda haqiqiy remote sertifikat fingerprint'i bilan solishtir, mos kelmasa uzish | Test: fingerprint buzilsa qo'ng'iroq uzildi |
+| S13-06 | Audio UI: mute, speaker, davomiylik, tarmoq sifati indikatori (`getStats` RTT/packet loss) | — |
+| S13-07 | Ruxsatlar (mikrofon), audio session (iOS `AVAudioSession`, Android `AudioManager` mode), kiruvchi qo'ng'iroqda ring | — |
+| S13-08 | Qo'ng'iroq tugashi: ikkala tomonda tozalash, `HANGUP` signal, "o'tkazib yuborilgan" xabar | — |
+| S13-09 | `docs/calls/media.md`: stack, cheklovlar, ma'lum muammolar | Yozilgan |
 
 ## Demo
 Ikki telefon, biri mobil internetda, biri Wi-Fi'da — audio qo'ng'iroq. `turnserver` loglarida relay ko'rinadi.
@@ -44,9 +44,10 @@ Ikki telefon, biri mobil internetda, biri Wi-Fi'da — audio qo'ng'iroq. `turnse
 ## Tuzoqlar
 - Emulator mikrofoni — ishonchsiz. Haqiqiy 2 ta qurilma kerak (yoki 1 telefon + 1 eski telefon).
 - Bluetooth/karnay/quloqchin audio routing — v1'da faqat oddiy + karnay.
-- Bu sprint bitmasa — **loyiha muvaffaqiyatsiz emas.** Chat E2EE ishlayapti. Qo'ng'iroqni v1.1 qilib, S13'ga o't.
+- `IWebRtcService` interfeysi `Chittak.Client`da, implementatsiya faqat Mobile'da. Desktop qo'ng'iroq — roadmap (SIPSorcery desktop'da mikrofon/dinamik bilan ishlashi mumkin — v2'da spike).
+- Bu sprint bitmasa — **loyiha muvaffaqiyatsiz emas.** Chat E2EE ishlayapti. Qo'ng'iroqni v1.1 qilib, S14'ga o't.
 
 ---
 
 ---
-[← S11](S11-turn-signaling.md) · [Reja va qoidalar](README.md) · [S13 →](S13-xavfsizlik.md)
+[← S12](S12-turn-signaling.md) · [Reja va qoidalar](README.md) · [S14 →](S14-xavfsizlik.md)

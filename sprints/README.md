@@ -1,6 +1,6 @@
 # Chittak — Sprint rejasi (TZ shaklida)
 
-Bu hujjat — bir kishi uchun, **o'rganish orqali qurish** rejimida yozilgan. Har sprint = 1 hafta (full-time) yoki 2 hafta (kechqurun/dam olish kunlari). Sprintlar tartibi **ataylab**: avval kripto (yurak), keyin server (relay), keyin telefon (UI), oxirida qo'ng'iroq va qattiqlashtirish. Telefon UI'sini S7'gacha ochmaysan — bu eng ko'p vaqtni yeydigan va eng kam o'rgatadigan qism.
+Bu hujjat — bir kishi uchun, **o'rganish orqali qurish** rejimida yozilgan. Har sprint = 1 hafta (full-time) yoki 2 hafta (kechqurun/dam olish kunlari). Sprintlar tartibi **ataylab**: avval kripto (yurak), keyin server (relay), keyin telefon (UI), keyin desktop (ikkinchi qurilma), oxirida qo'ng'iroq va qattiqlashtirish. Telefon UI'sini S7'gacha ochmaysan — bu eng ko'p vaqtni yeydigan va eng kam o'rgatadigan qism.
 
 ---
 
@@ -48,10 +48,11 @@ Bu hujjat — bir kishi uchun, **o'rganish orqali qurish** rejimida yozilgan. Ha
 | [S08](S08-maui-baza-kontaktlar.md) | MAUI: shifrlangan lokal baza, sessiyalar, kontaktlar |
 | [S09](S09-maui-chat.md) | MAUI: chat → 🏁 MILESTONE 2 |
 | [S10](S10-multi-device-push.md) | Multi-device sync, rotatsiya, push |
-| [S11](S11-turn-signaling.md) | Qo'ng'iroq 1: coturn, TURN credential, signaling |
-| [S12](S12-webrtc-media.md) | Qo'ng'iroq 2: WebRTC media (audio) |
-| [S13](S13-xavfsizlik.md) | Xavfsizlikni qattiqlashtirish |
-| [S14](S14-release.md) | Release: CI/CD, beta, monitoring |
+| [S11](S11-desktop-avalonia.md) | Desktop: Avalonia klient (Linux) |
+| [S12](S12-turn-signaling.md) | Qo'ng'iroq 1: coturn, TURN credential, signaling |
+| [S13](S13-webrtc-media.md) | Qo'ng'iroq 2: WebRTC media (audio) |
+| [S14](S14-xavfsizlik.md) | Xavfsizlikni qattiqlashtirish |
+| [S15](S15-release.md) | Release: CI/CD, beta, monitoring |
 
 Har sprint fayli bir xil tuzilishda: **Maqsad → Nega hozir → O'rganiladi → Vazifalar (ID + qabul mezoni) → Demo → Resurslar → Tuzoqlar.** Vazifa ID'lari (`S6-04`) — GitHub issue nomlari.
 
@@ -68,6 +69,9 @@ Har sprint fayli bir xil tuzilishda: **Maqsad → Nega hozir → O'rganiladi →
 | Media xabarlar | Fayl: klientda shifrlash (random kalit) → S3-compatible storage (opaque) → kalit xabar ichida | Signal attachments dizayni |
 | Disappearing messages | Timer klientda, receipt bilan sinxron | — |
 | Post-quantum (PQXDH) | X3DH → PQXDH (Kyber/ML-KEM) — Signal 2023'dan | https://signal.org/docs/specifications/pqxdh/ |
+| Desktop: Windows / macOS | `ISecureStore` — DPAPI (Windows), Keychain (macOS); paketlash (MSIX / `.app`) | https://learn.microsoft.com/dotnet/api/system.security.cryptography.protecteddata |
+| Desktop qo'ng'iroq | S13 stack desktop'da (SIPSorcery + mikrofon/dinamik) | https://github.com/sipsorcery-org/sipsorcery |
+| Kontaktlar sync | Kontakt ro'yxati o'z qurilmalari orasida E2EE sync (desktop'da manzillar kitobi yo'q) | Sesame spec |
 | Ko'p server instansiyasi | SignalR Redis backplane, connection registry Redis'da | https://learn.microsoft.com/aspnet/core/signalr/redis-backplane |
 
 ---
@@ -86,11 +90,12 @@ S7  ▓▓▓▓▓▓▓    1 hafta    MAUI auth
 S8  ▓▓▓▓▓▓▓    1 hafta    MAUI baza + kontakt
 S9  ▓▓▓▓▓▓▓    1 hafta    MAUI chat        🏁 M2: telefon ↔ telefon
 S10 ▓▓▓▓▓▓▓    1 hafta    multi-device + push
-S11 ▓▓▓▓▓▓▓    1 hafta    TURN + signaling
-S12 ▓▓▓▓▓▓▓▓▓▓ 1–2 hafta  WebRTC media     (xavfli)
-S13 ▓▓▓▓▓▓▓    1 hafta    xavfsizlik
-S14 ▓▓▓▓▓▓▓    1 hafta    release          🏁 M3: beta
-                ≈ 15–16 hafta full-time / 7–8 oy part-time
+S11 ▓▓▓▓▓▓▓    1 hafta    desktop (Avalonia)
+S12 ▓▓▓▓▓▓▓    1 hafta    TURN + signaling
+S13 ▓▓▓▓▓▓▓▓▓▓ 1–2 hafta  WebRTC media     (xavfli)
+S14 ▓▓▓▓▓▓▓    1 hafta    xavfsizlik
+S15 ▓▓▓▓▓▓▓    1 hafta    release          🏁 M3: beta
+                ≈ 16–17 hafta full-time / 8–9 oy part-time
 ```
 
 Eng muhim eslatma: **S6 (M1) ga yetib bor.** Undan keyin loyiha "tashlab qo'yilsa" ham — sen X3DH, Double Ratchet, ASP.NET Core relay, Postgres concurrency'ni haqiqiy kodda o'rgangan bo'lasan. Bu — o'z-o'zidan katta natija.

@@ -9,7 +9,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 Hujjatlar (hammasi o'zbek tilida, **lotin alifbosida**):
 - `chittak-arxitektura.md` — "nima uchun shunday" hujjati: 3 komponent, uchidan-uchiga workflow, har jadvalning sababi, roadmap. Dizayn o'zgarsa **shu fayl ham yangilanadi** (DoD qoidasi).
 - `chittak-db.sql` — server sxemasining **kontrakti**. Kelajakda EF Core code-first bo'ladi, lekin bu fayl etalon bo'lib qoladi (test bilan solishtiriladi, `sprints/S00-skelet.md` → S0-05).
-- `sprints/README.md` — ish qoidalari (Scrumban solo, WIP=1, DoD, ADR), sprint indeksi; `sprints/S00..S14-*.md` — har sprint TZ shaklida (vazifa ID'lari `S6-04` = GitHub issue nomlari).
+- `sprints/README.md` — ish qoidalari (Scrumban solo, WIP=1, DoD, ADR), sprint indeksi; `sprints/S00..S15-*.md` — har sprint TZ shaklida (vazifa ID'lari `S6-04` = GitHub issue nomlari).
 
 ## Buzilmaydigan tamoyil
 
@@ -24,8 +24,9 @@ Server — "soqov pochta": faqat **public** kalitlar, **opaque** ciphertext navb
 | OTK berish | Faqat bitta SQL: `DELETE ... WHERE id = (SELECT ... FOR UPDATE SKIP LOCKED LIMIT 1) RETURNING` — EF `Remove` bilan emas |
 | Yetkazish | At-least-once: avval DB'ga INSERT, keyin push; yozuv faqat klient **ACK** qilgach o'chiriladi; `UNIQUE (recipient_device_id, client_message_id)` idempotency |
 | Kontakt topish | `users.phone_hash` (SHA-256, E.164) + `discoverable`; server so'rovni saqlamaydi; hash brute-force'ga bardosh bermasligi hujjatda halol yozilgan |
+| Klient UI | Mobil — .NET MAUI (Linux'da faqat Android build), desktop — Avalonia (MAUI'da Linux target yo'q). Mantiq umumiy `Chittak.Client`da (UI framework'ni bilmaydi), View'lar ikki marta. Desktop = alohida qurilma, v1'da qo'ng'iroqsiz. Sprint: S11 |
 | Kripto kutubxona | NSec (libsodium); MAUI'da ishlamasa BouncyCastle — S0-08 spike hal qiladi |
-| Rejalashtirilgan struktura | `src/server/Chittak.{Api,Core,Infrastructure}`, `src/client/Chittak.Mobile` (MAUI), `src/shared/Chittak.Protocol`, `tests/`. Core → Infrastructure'ni bilmaydi; Protocol'da interfeyslar, implementatsiya klientda |
+| Rejalashtirilgan struktura | `src/server/Chittak.{Api,Core,Infrastructure}`, `src/client/Chittak.{Client,Mobile,Desktop}` (umumiy mantiq, MAUI, Avalonia), `src/shared/Chittak.Protocol`, `tests/`. Core → Infrastructure'ni bilmaydi; Protocol'da interfeyslar, implementatsiya klientda. `Chittak.Client`da `Microsoft.Maui.*`/`Avalonia.*` reference bo'lmaydi |
 
 ## Sxemani tekshirish
 
