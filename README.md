@@ -8,4 +8,6 @@ server — "soqov pochta" (relay + ochiq kalitlar kitobi), bazada faqat public k
 - [chittak-arxitektura.md](chittak-arxitektura.md) — arxitektura, workflow, har jadvalning "nega"si
 - [chittak-db.sql](chittak-db.sql) — server sxemasi (PostgreSQL 13+)
 - [sprints/](sprints/README.md) — 16 sprintlik reja (TZ shaklida), har sprint alohida fayl, resurslar bilan
+- [learn/](learn/README.md) — o'rganish uchun ishga tushiriladigan o'yinchoq misollar (DH → X3DH → Double Ratchet) va mashqlar
+- [resources/](resources/README.md) — X3DH / Double Ratchet'ni kod orqali o'rganish: tanlangan repolar, aniq fayllar, litsenziya ogohlantirishi
 

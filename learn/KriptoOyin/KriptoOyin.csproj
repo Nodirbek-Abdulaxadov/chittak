@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <!-- O'rganish uchun o'yinchoq misol. Chittak.slnx'ga kirmaydi, CI'da build bo'lmaydi.
+       TargetFramework, Nullable va analyzer qoidalari Directory.Build.props'dan keladi. -->
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="NSec.Cryptography" />
+  </ItemGroup>
+
+</Project>

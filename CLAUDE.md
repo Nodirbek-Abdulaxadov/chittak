@@ -38,6 +38,7 @@ Clean Architecture (4 qatlam), barcha loyiha va namespace'lar `Chittak.*`:
 - `src/server/Chittak.Server` → Infrastructure. Minimal API endpoint'lar, OpenTelemetry, health checks, `Dockerfile`.
 - `src/shared/Chittak.Protocol` — hozircha bo'sh. `src/client/Chittak.{Mobile,Desktop}` — shablon; `Chittak.Client` hali yaratilmagan.
 - `tests/Chittak.{UnitTests,IntegrationTests}` — hozircha testsiz; integratsiya testlari Testcontainers (Docker) ishlatadi.
+- `learn/` — o'rganish uchun o'yinchoq misollar (`dotnet run --project learn/KriptoOyin`); `Chittak.slnx`ga **kirmaydi**, Protocol kodi emas — u yerdan kod ko'chirilmaydi. `resources/` — tashqi repolar ro'yxati; Signal/C# port repolari GPL/AGPL, ulardan kod nusxalanmaydi (Chittak — MIT).
 
 ## Build va ishga tushirish
 

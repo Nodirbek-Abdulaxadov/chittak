@@ -29,6 +29,7 @@ Identity = **ikki kalit**: Ed25519 (imzo uchun) + X25519 (DH uchun). Public qism
 `dotnet test --filter X3dh` → yashil; `x3dh.md` o'qib bo'lgan odam nima uchun DH3 kerakligini tushunadi.
 
 ## Resurslar
+- **Avval ishga tushiring:** [`learn/KriptoOyin`](../learn/README.md) (mashqlar bilan) · kod misollari: [`resources/`](../resources/README.md)
 - **X3DH spec (majburiy, 2 marta o'qi):** https://signal.org/docs/specifications/x3dh/
 - XEdDSA (nega Signal bitta kalit ishlatadi): https://signal.org/docs/specifications/xeddsa/
 - RFC 7748 (X25519): https://www.rfc-editor.org/rfc/rfc7748

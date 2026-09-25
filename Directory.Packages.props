@@ -46,6 +46,11 @@
     <PackageVersion Include="CommunityToolkit.Mvvm" Version="8.4.2" />
   </ItemGroup>
 
+  <ItemGroup Label="Crypto">
+    <!-- libsodium wrapper: X25519, Ed25519, ChaCha20-Poly1305 (S0-08 spike decides if it stays) -->
+    <PackageVersion Include="NSec.Cryptography" Version="26.4.0" />
+  </ItemGroup>
+
   <ItemGroup Label="Tests">
     <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="17.14.1" />
     <PackageVersion Include="xunit" Version="2.9.3" />

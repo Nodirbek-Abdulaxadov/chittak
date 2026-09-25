@@ -29,6 +29,7 @@
 `dotnet test --filter Ratchet` → yashil, shu jumladan 10 000 xabarlik fuzz.
 
 ## Resurslar
+- **Avval ishga tushiring:** [`learn/KriptoOyin`](../learn/README.md) (mashqlar bilan) · kod misollari: [`resources/`](../resources/README.md)
 - **Double Ratchet spec (majburiy):** https://signal.org/docs/specifications/doubleratchet/ — §3 (tushuncha), §5 (algoritm, pseudo-kod), §6 (xavfsizlik)
 - Vizual tushuntirish: spec'ning o'zidagi chizmalar eng yaxshisi — ularni qo'lda qayta chiz
 - libsignal `session_cipher.rs` — solishtirish
