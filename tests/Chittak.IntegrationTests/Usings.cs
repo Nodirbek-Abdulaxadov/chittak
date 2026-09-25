@@ -4,6 +4,5 @@ global using Microsoft.Extensions.Configuration;
 global using Testcontainers.PostgreSql;
 global using System.Net;
 global using System.Net.Http.Json;
-global using Application.Common.Extensions;
-global using Application.Features.Todo.Views;
+global using Chittak.Application.Common.Extensions;
 global using AwesomeAssertions;

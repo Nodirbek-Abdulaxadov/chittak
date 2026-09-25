@@ -19,7 +19,7 @@
 | S5-06 | `GET /keys/bundle/{deviceId}` → `{ identityKey, signedPreKey{keyId,publicKey,signature}, oneTimePreKey?{keyId,publicKey} }` — OTK **bitta SQL** bilan: `DELETE ... WHERE id = (SELECT ... FOR UPDATE SKIP LOCKED LIMIT 1) RETURNING` | Test: 2 ta OTK, 50 parallel so'rov → aynan 2 tasi OTK bilan, 48 tasi OTK'siz, dublikat yo'q |
 | S5-07 | Bundle so'roviga rate-limit (60/min/device) — OTK pool'ni bo'shatib qo'yish hujumiga qarshi | Test |
 | S5-08 | Signed prekey rotatsiya: yangi `keyId` yuklansa eski saqlanadi; 3-si yuklansa eng eskisi o'chadi (joriy + oldingi) | Test |
-| S5-09 | `Chittak.Core`da `IPreKeyRepository` + `Infrastructure`da implementatsiya; S5-06 raw SQL `FromSqlRaw`/Dapper | Core toza |
+| S5-09 | `Chittak.Application`da `IPreKeyRepository` + `Chittak.Infrastructure`da implementatsiya; S5-06 raw SQL `FromSqlRaw`/Dapper | Application'da raw SQL / Npgsql yo'q |
 | S5-10 | Konsol demoni (S3-07) haqiqiy serverga ulash: `IPreKeyBundleSource` → HTTP | Konsol demo server orqali bundle oladi |
 
 ## Demo

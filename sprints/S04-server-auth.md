@@ -11,7 +11,7 @@
 ## Vazifalar
 | ID | Vazifa | Qabul mezoni |
 |---|---|---|
-| S4-01 | `Chittak.Core`: `User`, `Device`, `PhoneVerification`, `AuthSession` domain modellari; `IPhoneVerificationRepository`, `IDeviceRepository`, `IAuthSessionRepository`, `ISmsSender`, `IClock` | Core'da EF/HTTP yo'q |
+| S4-01 | `Chittak.Domain`: `User`, `Device`, `PhoneVerification`, `AuthSession` domain modellari; `Chittak.Application`: `IPhoneVerificationRepository`, `IDeviceRepository`, `IAuthSessionRepository`, `ISmsSender`, `IClock` | Core'da EF/HTTP yo'q |
 | S4-02 | E.164 normalizatsiya: `+998 90 123-45-67` → `+998901234567`; `libphonenumber-csharp` yoki regex | Test: 10 ta kirish formati |
 | S4-03 | `POST /auth/otp/send { phone }`: rate-limit (3/10min/raqam, 10/kun/raqam, 20/soat/IP) → 6 xonali kod → `Argon2id` yoki `PBKDF2` hash → `phone_verifications` → `ISmsSender` | Integratsiya test: 4-so'rov 429 qaytaradi; DBda `code_hash` plaintext emas |
 | S4-04 | `POST /auth/otp/verify { phone, code, registrationId, deviceName, platform }`: `consumed_at IS NULL AND expires_at > now() AND attempts < 5`; noto'g'ri → `attempts++`; to'g'ri → `consumed_at`, user (yo'q bo'lsa) + `phone_hash`, device, `auth_sessions` → `{ accessToken, refreshToken, userId, deviceId }` | Testlar: to'g'ri; 5 marta noto'g'ri → 6-si rad; ishlatilgan kod qayta rad; muddati o'tgan rad |

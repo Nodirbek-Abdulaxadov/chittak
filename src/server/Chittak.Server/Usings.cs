@@ -1,0 +1,15 @@
+﻿global using Chittak.Application.Common.Interfaces;
+global using Chittak.Application.Common.Exceptions;
+global using Microsoft.AspNetCore.Diagnostics;
+global using Microsoft.AspNetCore.Mvc;
+global using FluentValidation;
+global using Chittak.Application.Common.Extensions;
+global using PediatR;
+global using Microsoft.AspNetCore.Diagnostics.HealthChecks;
+global using Microsoft.Extensions.Diagnostics.HealthChecks;
+global using System.Text.Json;
+global using Chittak.Application;
+global using Chittak.Infrastructure;
+global using Chittak.Infrastructure.Data;
+global using Chittak.Server.Endpoints;
+global using Chittak.Server.Infrastructure;

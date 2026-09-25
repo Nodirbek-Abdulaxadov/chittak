@@ -11,7 +11,7 @@
 ## Vazifalar
 | ID | Vazifa | Qabul mezoni |
 |---|---|---|
-| S15-01 | `Dockerfile` (multi-stage) `Chittak.Api`; `docker-compose.prod.yml`: api + postgres + coturn + caddy | VPS'da `docker compose up -d` |
+| S15-01 | `Dockerfile` (multi-stage) `Chittak.Server`; `docker-compose.prod.yml`: api + postgres + coturn + caddy | VPS'da `docker compose up -d` |
 | S15-02 | Caddy: domen, avtomatik Let's Encrypt, WS proxy, coturn uchun TLS sert (5349) | `https://api.chittak.uz/health` 200 |
 | S15-03 | GitHub Actions: `main`ga merge → image build → GHCR → SSH deploy → migratsiya (`dotnet ef database update` yoki migration bundle) | Deploy 5 daqiqa, rollback yo'li hujjatlangan |
 | S15-04 | Health checks (`/health`: DB, coturn port), `/metrics` (Prometheus format) — ixtiyoriy Grafana | — |

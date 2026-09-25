@@ -159,9 +159,10 @@ Yetkazildi/o'qildi: receipt qaytadi
 Chittak/
   src/
     server/
-      Chittak.Api/            <- HTTP endpointlar (auth, keys, messages, contacts, calls), SignalR hub, DI
-      Chittak.Core/           <- domain (device, key, queue) + interfeyslar
-      Chittak.Infrastructure/ <- EF Core + Postgres, repolar, SMS, TURN credential, rate-limit
+      Chittak.Server/         <- HTTP endpointlar (auth, keys, messages, contacts, calls), SignalR hub, DI
+      Chittak.Application/    <- use-case'lar, validatsiya, interfeyslar (IApplicationDbContext, ISmsSender, ...)
+      Chittak.Domain/         <- entity'lar (user, device, key, queue) — hech narsaga bog'liq emas
+      Chittak.Infrastructure/ <- EF Core + Postgres (konfiguratsiyalar, migratsiyalar), SMS, TURN credential, rate-limit
     client/
       Chittak.Client/         <- umumiy klient mantiqi (UI framework'ni bilmaydi)
         Services/
@@ -175,11 +176,12 @@ Chittak/
     shared/
       Chittak.Protocol/       <- umumiy DTO: envelope + bundle formati
   tests/
-    Chittak.Crypto.Tests/     <- X3DH shared-secret, ratchet, wrong-key, replay
+    Chittak.UnitTests/        <- X3DH shared-secret, ratchet, wrong-key, replay; validatorlar
+    Chittak.IntegrationTests/ <- API + haqiqiy Postgres (Testcontainers), sxema kontrakti
 ```
 
 **Nega bu qatlamlar:**
-- **Core** interfeys beradi, **Infrastructure** uni Postgres bilan bajaradi → domain bazani bilmaydi (almashtirsa bo'ladi, test oson).
+- **Domain** hech narsaga bog'liq emas; **Application** interfeys beradi, **Infrastructure** uni Postgres bilan bajaradi → domain va use-case'lar bazani bilmaydi (almashtirsa bo'ladi, test oson). Bog'liqlik bir yo'nalishda: Server → Infrastructure → Application → Domain.
 - **Crypto** alohida papka — chunki u yurak; **Storage**dan ajratilgan, primitivlar NSec'dan.
 - **Client** UI framework'ni bilmaydi → bitta ViewModel MAUI'da ham, Avalonia'da ham ishlaydi; platformaga bog'liq narsa faqat `Platform/` interfeyslari orqali.
 - **Protocol** (shared) — envelope/bundle formati klient ham, server ham bir xil tushunishi uchun (server ichini ochmasa ham, formatni biladi).
@@ -196,7 +198,7 @@ Har jadvalni: *nima saqlaydi → nega bor (bo'lmasa nima buziladi) → qanday is
 - **Qanday:** ro'yxatdan o'tganda yaratiladi (hash server hisoblaydi); `POST /contacts/discover` shu jadvalga qaraydi.
 
 ### `devices` — QURILMA (per-device model)
-- **Nima:** bir userning har telefoni alohida yozuv (registration_id, push_token).
+- **Nima:** bir userning har qurilmasi (telefon yoki desktop) alohida yozuv (registration_id, `platform` — `android`/`ios`/`linux`/`windows`/`macos`, push_token).
 - **Nega:** Signal **per-device** — bir odamda bir necha telefon; **har qurilmaning O'Z kalitlari va sessiyalari** bor. Bitta qurilmaga shifrlangan xabar boshqasida ochilmaydi. Bu — multi-device xavfsizligining asosi.
 - **Qanday:** har qurilma ro'yxatdan o'tganda yaratiladi (`UNIQUE (user_id, registration_id)`); xabar user'ga emas, uning **qurilmalariga** yuboriladi. `GET /users/{id}/devices` — jo'natuvchi kimlarga shifrlashini shu yerdan biladi. Yangi qurilma qo'shish — mavjud qurilmadan QR orqali "linking" (roadmap, §8).
 

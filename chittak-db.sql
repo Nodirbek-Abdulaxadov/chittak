@@ -41,7 +41,7 @@ CREATE TABLE devices (
     user_id         uuid NOT NULL REFERENCES users(id) ON DELETE CASCADE,
     registration_id int  NOT NULL,        -- Signal registration id (client-generated)
     name            text,                 -- "Nodirbek's Pixel"
-    platform        text CHECK (platform IN ('android', 'ios')),
+    platform        text CHECK (platform IN ('android', 'ios', 'linux', 'windows', 'macos')),  -- desktop = separate device (ADR-0011)
     push_token      text,                 -- for wake-up push (opaque to msg content)
     created_at      timestamptz NOT NULL DEFAULT now(),
     last_seen_at    timestamptz,

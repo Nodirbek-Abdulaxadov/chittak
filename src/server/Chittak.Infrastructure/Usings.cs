@@ -1,0 +1,11 @@
+﻿global using Chittak.Application.Common.Interfaces;
+global using Chittak.Domain.Entities;
+global using Microsoft.EntityFrameworkCore;
+global using System.Reflection;
+global using Chittak.Infrastructure.Data;
+global using Microsoft.Extensions.Configuration;
+global using Microsoft.Extensions.DependencyInjection;
+global using Chittak.Domain.Common;
+global using Chittak.Domain.Enums;
+global using Microsoft.EntityFrameworkCore.Diagnostics;
+global using Microsoft.EntityFrameworkCore.Metadata.Builders;

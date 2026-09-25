@@ -1,0 +1,14 @@
+﻿global using Chittak.Application.Common.Interfaces;
+global using Chittak.Domain.Enums;
+global using Chittak.Domain.Common;
+global using Chittak.Application.Common.Extensions;
+global using Chittak.Application.Common.Exceptions;
+global using Chittak.Domain.Entities;
+global using Microsoft.EntityFrameworkCore;
+global using System.Linq.Expressions;
+global using Riok.Mapperly.Abstractions;
+global using PediatR;
+global using FluentValidation;
+global using Chittak.Application.Common.Behaviours;
+global using System.Reflection;
+global using Microsoft.Extensions.DependencyInjection;
