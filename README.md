@@ -9,4 +9,3 @@ server — "soqov pochta" (relay + ochiq kalitlar kitobi), bazada faqat public k
 - [chittak-db.sql](chittak-db.sql) — server sxemasi (PostgreSQL 13+)
 - [sprints/](sprints/README.md) — 15 sprintlik reja (TZ shaklida), har sprint alohida fayl, resurslar bilan
 
-Hozirgi holat: dizayn bosqichi, kod hali yo'q.
