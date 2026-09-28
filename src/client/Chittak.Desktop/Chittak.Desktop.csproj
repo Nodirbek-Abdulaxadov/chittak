@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
     <TargetFramework>net10.0</TargetFramework>
@@ -22,4 +22,8 @@
     </PackageReference>
     <PackageReference Include="CommunityToolkit.Mvvm"/>
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Chittak.Client\Chittak.Client.csproj" />
+  </ItemGroup>
+
 </Project>

@@ -12,6 +12,7 @@
     <Project Path="src/server/Chittak.Infrastructure/Chittak.Infrastructure.csproj" />
     <Project Path="src/server/Chittak.Server/Chittak.Server.csproj" />
     <Project Path="src/shared/Chittak.Protocol/Chittak.Protocol.csproj" />
+    <Project Path="src/client/Chittak.Client/Chittak.Client.csproj" />
     <Project Path="src/client/Chittak.Desktop/Chittak.Desktop.csproj" />
   </Folder>
   <Folder Name="/tests/">

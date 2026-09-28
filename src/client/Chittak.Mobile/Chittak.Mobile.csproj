@@ -72,4 +72,8 @@
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" />
 	</ItemGroup>
 
+	<ItemGroup>
+		<ProjectReference Include="..\Chittak.Client\Chittak.Client.csproj" />
+	</ItemGroup>
+
 </Project>

@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Loyiha holati
 
-**Chittak** — Signal protokoli (X3DH + Double Ratchet) asosidagi E2EE messenjer. Hozir **S00 (skelet) bosqichi**: server skeleti bor (8 entity, EF konfiguratsiyalar, `Initial` migratsiya — kontraktga to'liq mos); `Chittak.Protocol`, Mobile, Desktop — bo'sh shablonlar; kripto kodi va testlar hali yo'q.
+**Chittak** — Signal protokoli (X3DH + Double Ratchet) asosidagi E2EE messenjer. **S00 (skelet) yopilgan** (S0-01…S0-09; S0-10 = ADR 0011 qolgan): server skeleti, 8 entity + `Initial` migratsiya (kontrakt testi bilan himoyalangan), ADR 0001–0003 (`docs/adr/`), NSec spike Linux va Android'da o'tgan. Keyingisi — **S01 (X3DH)**: haqiqiy kripto kodi hali yo'q.
 
 Hujjatlar (hammasi o'zbek tilida, **lotin alifbosida**):
 - `chittak-arxitektura.md` — "nima uchun shunday" hujjati: 3 komponent, uchidan-uchiga workflow, har jadvalning sababi, roadmap. Dizayn o'zgarsa **shu fayl ham yangilanadi** (DoD qoidasi).
@@ -36,8 +36,8 @@ Clean Architecture (4 qatlam), barcha loyiha va namespace'lar `Chittak.*`:
 - `src/server/Chittak.Application` → Domain. `IApplicationDbContext`, PediatR, FluentValidation, Mapperly.
 - `src/server/Chittak.Infrastructure` → Application. `ApplicationDbContext`, `Data/Configurations/` (har entity'ga bitta), `Migrations/`, snake_case naming convention.
 - `src/server/Chittak.Server` → Infrastructure. Minimal API endpoint'lar, OpenTelemetry, health checks, `Dockerfile`.
-- `src/shared/Chittak.Protocol` — hozircha bo'sh. `src/client/Chittak.{Mobile,Desktop}` — shablon; `Chittak.Client` hali yaratilmagan.
-- `tests/Chittak.{UnitTests,IntegrationTests}` — hozircha testsiz; integratsiya testlari Testcontainers (Docker) ishlatadi.
+- `src/shared/Chittak.Protocol` — NSec ulangan; ichida faqat vaqtinchalik `Spike/NsecSpike.cs` (S0-08, S01'da o'chiriladi). `src/client/Chittak.Client` — bo'sh umumiy kutubxona (→ Protocol). `src/client/Chittak.{Mobile,Desktop}` (→ Client) — shablon ekranlari spike natijasini ko'rsatadi.
+- `tests/Chittak.IntegrationTests` — `SchemaContractTests` (S0-05, Testcontainers/Docker). `tests/Chittak.UnitTests` — hali bo'sh (S01'dan).
 - `learn/` — o'rganish uchun o'yinchoq misollar (`dotnet run --project learn/KriptoOyin`); `Chittak.slnx`ga **kirmaydi**, Protocol kodi emas — u yerdan kod ko'chirilmaydi. `resources/` — tashqi repolar ro'yxati; Signal/C# port repolari GPL/AGPL, ulardan kod nusxalanmaydi (Chittak — MIT).
 
 ## Build va ishga tushirish
@@ -45,7 +45,8 @@ Clean Architecture (4 qatlam), barcha loyiha va namespace'lar `Chittak.*`:
 ```bash
 dotnet build Chittak.slnx                    # Mobile slnx'da YO'Q (CI'da maui workload yo'q) — S7-01'da alohida job
 dotnet test Chittak.slnx                     # integratsiya testlari uchun Docker kerak
-docker compose up -d postgres                # port .env'dagi POSTGRES_PORT (54123)
+cp .env.example .env                         # birinchi marta; qiymatlar appsettings.Development.json bilan mos
+docker compose up -d postgres                # chittak-postgres, port 54123, baza chittak_db
 dotnet run --project src/server/Chittak.Server   # Development'da Database:AutoMigrate=true
 dotnet ef migrations add <Nom> -p src/server/Chittak.Infrastructure -s src/server/Chittak.Server -o Migrations
 dotnet run --project src/client/Chittak.Desktop

@@ -17,4 +17,8 @@
     <ProjectReference Include="..\Chittak.Domain\Chittak.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\shared\Chittak.Protocol\Chittak.Protocol.csproj" />
+  </ItemGroup>
+
 </Project>

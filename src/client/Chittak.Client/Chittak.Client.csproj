@@ -1,0 +1,10 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <!-- Shared client logic for Mobile (MAUI) and Desktop (Avalonia): ViewModels, API, storage, crypto wrapper.
+       Must stay UI-framework agnostic: no Microsoft.Maui.* / Avalonia.* references (S7-01). -->
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\shared\Chittak.Protocol\Chittak.Protocol.csproj" />
+  </ItemGroup>
+
+</Project>

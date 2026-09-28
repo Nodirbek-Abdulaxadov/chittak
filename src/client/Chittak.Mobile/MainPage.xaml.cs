@@ -1,4 +1,4 @@
-﻿namespace Chittak.Mobile;
+namespace Chittak.Mobile;
 
 public partial class MainPage : ContentPage
 {
@@ -7,6 +7,10 @@ public partial class MainPage : ContentPage
 	public MainPage()
 	{
 		InitializeComponent();
+
+		// S0-08 spike: NSec (libsodium) Android'da ishlaydimi? Natija ekranda va logcat'da (tag: DOTNET).
+		SpikeLabel.Text = Chittak.Protocol.Spike.NsecSpike.Run();
+		Console.WriteLine($"CHITTAK-SPIKE {SpikeLabel.Text}");
 	}
 
 	private void OnCounterClicked(object? sender, EventArgs e)

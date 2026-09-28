@@ -19,6 +19,7 @@ COPY ["src/server/Chittak.Server/Chittak.Server.csproj", "src/server/Chittak.Ser
 COPY ["src/server/Chittak.Infrastructure/Chittak.Infrastructure.csproj", "src/server/Chittak.Infrastructure/"]
 COPY ["src/server/Chittak.Application/Chittak.Application.csproj", "src/server/Chittak.Application/"]
 COPY ["src/server/Chittak.Domain/Chittak.Domain.csproj", "src/server/Chittak.Domain/"]
+COPY ["src/shared/Chittak.Protocol/Chittak.Protocol.csproj", "src/shared/Chittak.Protocol/"]
 RUN dotnet restore "./src/server/Chittak.Server/Chittak.Server.csproj"
 COPY . .
 WORKDIR "/src/src/server/Chittak.Server"
